@@ -1,0 +1,37 @@
+---
+title: "A Parameterized Quarto Report"
+subtitle: "Species: `r params$species`"
+format: 
+  html:
+    embed-resources: true
+editor: visual
+params:
+  species: "Chinstrap"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| echo: false
+#| message: false
+
+library(palmerpenguins)
+library(tidyverse)
+
+filtered <- penguins |> filter(species == params$species)
+
+
+
+```
+
+## Bill Length vs. Flipper Length
+
+```{r}
+#| echo: false
+#| message: false
+
+filtered |> 
+  ggplot(aes(bill_length_mm, flipper_length_mm)) +
+  geom_point(aes(color = island))
+
+```
